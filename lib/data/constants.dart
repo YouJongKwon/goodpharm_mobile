@@ -4,6 +4,7 @@ const double transitionLength = 500;
 
 const horizontalPadding = SizedBox(width: 10);
 const verticalPadding = SizedBox(height: 10);
+const commonPadding = EdgeInsets.symmetric(vertical: 10, horizontal: 16);
 
 enum ColorSeed {
   baseColor('primary', Color(0xff30C6C0)),
@@ -25,7 +26,8 @@ enum ColorSeed {
 enum ScreenSelected {
   ui(0),
   color(1),
-  typography(2);
+  typography(2),
+  etc(3);
 
   const ScreenSelected(this.value);
 

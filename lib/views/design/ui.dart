@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+import '../../utils/module/module.dart';
 
-import '../../data/constants.dart';
+import 'package:goodpharm_mobile/utils/SizeUtils.dart';
+
 
 /// Design System ( UI )
 /// * TODO - Slivers 관련 위젯
 /// * https://dalgoodori.tistory.com/63
 /// *
+@Deprecated("삭제 예정")
 class DesignSystemUI extends StatelessWidget {
   const DesignSystemUI({super.key, required this.scaffoldKey});
 
@@ -15,13 +17,19 @@ class DesignSystemUI extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> children = [
       const Buttons(),
+      const Buttons(),
     ];
 
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: children,
+    return Container(
+      width: getScreenWidth(context),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: children,
+          ),
+        ),
       ),
     );
     // return FocusTraversalGroup(
@@ -39,6 +47,12 @@ class DesignSystemUI extends StatelessWidget {
     // );
   }
 }
+
+enum SegmentSingle { Day, Week, Month, Year }
+
+enum SegmentMulti { One, Two, Three, Four, Five }
+
+enum RadioOptions { option1, option2, option3 }
 
 /// Cards
 
@@ -62,19 +76,29 @@ class _ButtonsState extends State<Buttons> {
   @override
   Widget build(BuildContext context) {
     return ComponentGroupDecoration(title: "Buttons", children: <Widget>[
-      createTextButtons(),
-      verticalPadding,
-      createElevatedButtons(),
-      verticalPadding,
-      createFilledButtons(),
-      verticalPadding,
-      createOutlinedButtons(),
-      verticalPadding,
-      createFABButtons(),
-      verticalPadding,
-      createIconButtons(),
-      verticalPadding,
-      const SingleChoice(),
+      // createTextButtons(),
+      // verticalPadding,
+      // createElevatedButtons(),
+      // verticalPadding,
+      // createFilledButtons(),
+      // verticalPadding,
+      // createOutlinedButtons(),
+      // verticalPadding,
+      // createFABButtons(),
+      // verticalPadding,
+      // createIconButtons(),
+      // verticalPadding,
+      // const SingleChoice(),
+      // verticalPadding,
+      // const MultipleChoice(),
+      // verticalPadding,
+      // const CheckBoxes(),
+      // verticalPadding,
+      // const RadioButtons(),
+      // verticalPadding,
+      // const Switches(),
+      // verticalPadding,
+      const Chips(),
       verticalPadding,
     ]);
   }
@@ -86,7 +110,10 @@ class _ButtonsState extends State<Buttons> {
         children: [
           const Text(
             "Text Button :",
-            style: TextStyle(color: Color(0xff333333), fontSize: 12),
+            style: TextStyle(
+                color: Color(0xff000000),
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
           ),
           horizontalPadding,
           createTextButton("Text", onPressed: () {}),
@@ -109,7 +136,10 @@ class _ButtonsState extends State<Buttons> {
         children: [
           const Text(
             "Elevated Button :",
-            style: TextStyle(color: Color(0xff333333), fontSize: 12),
+            style: TextStyle(
+                color: Color(0xff000000),
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
           ),
           horizontalPadding,
           createElevatedButton("Elevated", onPressed: () {}),
@@ -132,7 +162,10 @@ class _ButtonsState extends State<Buttons> {
         children: [
           const Text(
             "Filled Button :",
-            style: TextStyle(color: Color(0xff333333), fontSize: 12),
+            style: TextStyle(
+                color: Color(0xff000000),
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
           ),
           horizontalPadding,
           createFilledButton("Filled", onPressed: () {}),
@@ -155,7 +188,10 @@ class _ButtonsState extends State<Buttons> {
         children: [
           const Text(
             "Outlined Button :",
-            style: TextStyle(color: Color(0xff333333), fontSize: 12),
+            style: TextStyle(
+                color: Color(0xff000000),
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
           ),
           horizontalPadding,
           createOutlineButton("Outlined", onPressed: () {}),
@@ -180,7 +216,10 @@ class _ButtonsState extends State<Buttons> {
               children: [
                 const Text(
                   "fab Button :",
-                  style: TextStyle(color: Color(0xff333333), fontSize: 12),
+                  style: TextStyle(
+                      color: Color(0xff000000),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
                 ),
                 horizontalPadding,
                 createFloatingActionButton(const Icon(Icons.add), () {}),
@@ -205,7 +244,10 @@ class _ButtonsState extends State<Buttons> {
           children: [
             const Text(
               "Icon Button :",
-              style: TextStyle(color: Color(0xff333333), fontSize: 12),
+              style: TextStyle(
+                  color: Color(0xff000000),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
             ),
             horizontalPadding,
             Column(
@@ -356,9 +398,7 @@ Widget createIconButton(Icon icon, VoidCallback? onPressed,
   }
 }
 
-enum SegmentSingle { Day, Week, Month, Year }
-
-// Segmented Button
+// Segmented Button ( Single )
 class SingleChoice extends StatefulWidget {
   const SingleChoice({super.key});
 
@@ -398,30 +438,314 @@ class _SingleChoiceState extends State<SingleChoice> {
             data = select.first;
           });
         },
-      style: ButtonStyle(
-        // backgroundColor: MaterialStateProperty.resolveWith((states) => Color(0x00000000)),
-        // overlayColor: MaterialStateProperty.resolveWith((states) => Theme.of(context).colorScheme.surface),
-        surfaceTintColor: MaterialStateProperty.resolveWith((states) => Color(0xffffffff)),
-        overlayColor: MaterialStateProperty.resolveWith((states) => Color(0xff30C6C0)),
-        // shape: MaterialStateProperty.resolveWith((states) => ),
-        elevation: MaterialStateProperty.resolveWith((states) => 10.0),
+        style: ButtonStyle(
+          // backgroundColor: MaterialStateProperty.resolveWith((states) => Color(0x00000000)),
+          // overlayColor: MaterialStateProperty.resolveWith((states) => Theme.of(context).colorScheme.surface),
+          surfaceTintColor:
+              MaterialStateProperty.resolveWith((states) => Color(0xffffffff)),
+          overlayColor:
+              MaterialStateProperty.resolveWith((states) => Color(0xff30C6C0)),
+          // shape: MaterialStateProperty.resolveWith((states) => ),
+          elevation: MaterialStateProperty.resolveWith((states) => 10.0),
+        ));
+  }
+}
 
-      )
+// Segmented Button ( Multi )
+class MultipleChoice extends StatefulWidget {
+  const MultipleChoice({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _MultipleChoiceState();
+}
+
+class _MultipleChoiceState extends State<MultipleChoice> {
+  Set<SegmentMulti> selectedDataList = <SegmentMulti>{SegmentMulti.One};
+
+  @override
+  Widget build(BuildContext context) {
+    return SegmentedButton(
+      segments: const [
+        ButtonSegment(value: SegmentMulti.One, label: Text('One')),
+        ButtonSegment(value: SegmentMulti.Two, label: Text('Two')),
+        ButtonSegment(value: SegmentMulti.Three, label: Text('Three')),
+        ButtonSegment(value: SegmentMulti.Four, label: Text('Four')),
+        ButtonSegment(value: SegmentMulti.Five, label: Text('Five')),
+      ],
+      selected: selectedDataList,
+      onSelectionChanged: (select) {
+        setState(() {
+          selectedDataList = select;
+        });
+      },
+      multiSelectionEnabled: true,
+    );
+  }
+}
+
+/// Checkboxes
+class CheckBoxes extends StatefulWidget {
+  const CheckBoxes({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _CheckBoxesState();
+}
+
+class _CheckBoxesState extends State<CheckBoxes> {
+  bool? isChecked0 = true;
+  bool? isChecked1;
+  bool? isChecked2 = false;
+  bool? isChecked3 = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        verticalPadding,
+        const Text(
+          'CheckBoxes',
+          style: TextStyle(
+              color: Color(0xff000000),
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
+        ),
+        CheckboxListTile(
+            tristate: false,
+            value: isChecked0,
+            title: const Text('Option 1'),
+            onChanged: (value) {
+              setState(() {
+                isChecked0 = value;
+              });
+            }),
+        CheckboxListTile(
+            tristate: true,
+            value: isChecked1,
+            title: const Text('Option 2'),
+            onChanged: (value) {
+              setState(() {
+                isChecked1 = value;
+              });
+            }),
+        Checkbox(
+            tristate: false,
+            value: isChecked2,
+            activeColor: Colors.green,
+            checkColor: Colors.white,
+            overlayColor:
+                MaterialStateProperty.resolveWith((states) => Colors.red),
+            // long click
+            onChanged: (value) {
+              setState(() {
+                isChecked2 = value;
+              });
+            })
+      ],
     );
   }
 }
 
 /// Radio buttons
+class RadioButtons extends StatefulWidget {
+  const RadioButtons({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _RadioButtonsState();
+}
+
+class _RadioButtonsState extends State<RadioButtons> {
+  RadioOptions? selected = RadioOptions.option1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        verticalPadding,
+        const Text('Radio Button',
+            style: TextStyle(
+                color: Color(0xff000000),
+                fontSize: 12,
+                fontWeight: FontWeight.bold)),
+        RadioListTile(
+            value: RadioOptions.option1,
+            title: const Text('Option1'),
+            groupValue: selected,
+            onChanged: (value) {
+              setState(() {
+                selected = value;
+              });
+            }),
+        RadioListTile(
+            value: RadioOptions.option2,
+            title: const Text('Option2'),
+            groupValue: selected,
+            onChanged: (value) {
+              setState(() {
+                selected = value;
+              });
+            }),
+        RadioListTile(
+            value: RadioOptions.option3,
+            title: const Text('Option3'),
+            groupValue: selected,
+            onChanged: (value) {
+              setState(() {
+                selected = value;
+              });
+            })
+      ],
+    );
+  }
+}
+
+/// Switches
+class Switches extends StatefulWidget {
+  const Switches({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _SwitchesState();
+}
+
+class _SwitchesState extends State<Switches> {
+  bool value0 = false;
+  bool value1 = false;
+  bool value2 = false;
+
+  final MaterialStateProperty<Icon?> thumbIcon1 =
+      MaterialStateProperty.resolveWith<Icon?>((states) {
+    if (states.contains(MaterialState.selected)) {
+      return const Icon(Icons.check);
+    } else {
+      return const Icon(Icons.close);
+    }
+  });
+
+  final MaterialStateProperty<Icon?> thumbIcon2 =
+      MaterialStateProperty.resolveWith<Icon?>((states) {
+    if (states.contains(MaterialState.selected)) {
+      return const Icon(Icons.gpp_good);
+    } else {
+      return const Icon(Icons.not_interested);
+    }
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        verticalPadding,
+        const Text('Switches'),
+        verticalPadding,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Switch(
+                value: value0,
+                onChanged: (value) {
+                  setState(() {
+                    value0 = value;
+                  });
+                }),
+            Switch(
+                value: value1,
+                thumbIcon: thumbIcon1,
+                onChanged: (value) {
+                  setState(() {
+                    value1 = value;
+                  });
+                }),
+            Switch(
+                value: value2,
+                thumbIcon: thumbIcon2,
+                activeColor: Colors.white,
+                activeTrackColor: Colors.green,
+                onChanged: (value) {
+                  setState(() {
+                    value2 = value;
+                  });
+                }),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+/// Chips
+class Chips extends StatefulWidget {
+  const Chips({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _ChipsState();
+}
+
+class _ChipsState extends State<Chips> {
+  var isValue0 = false;
+  var isValue1 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 10.0,
+      runSpacing: 20.0,
+      children: [
+        ActionChip(
+          label: const Text('Action'),
+          onPressed: () {},
+        ),
+        ActionChip(
+          label: const Text('pizza'),
+          avatar: const Icon(Icons.local_pizza_outlined),
+          onPressed: () {},
+        ),
+        FilterChip(
+            label: const Text('Filter'),
+            showCheckmark: false,
+            avatar: const Icon(Icons.add),
+            selected: isValue0,
+            onSelected: (selected) {
+              setState(() {
+                isValue0 = selected;
+              });
+            }),
+        FilterChip(
+            label: const Text('Filter'),
+            pressElevation: 10,
+            selected: isValue1,
+            onSelected: (selected) {
+              setState(() {
+                isValue1 = selected;
+              });
+            }),
+        InputChip(
+          label: const Text('Input'),
+          onPressed: () {
+            Fluttertoast.showToast(msg: 'Input pressed..');
+          },
+          onDeleted: () {
+            Fluttertoast.showToast(msg: 'Input deleted..');
+          },
+        ),
+        InputChip(
+          label: const Text('Input'),
+          onPressed: () {
+            Fluttertoast.showToast(msg: 'Input pressed..');
+          },
+          onDeleted: () {
+            Fluttertoast.showToast(msg: 'Input deleted..');
+          },
+        ),
+      ],
+    );
+  }
+}
 
 /// Sliders
 
-/// Switches
-
 /// Progress
-
-/// Checkboxes
-
-/// Chips
 
 /// Tab Bar
 
@@ -461,7 +785,6 @@ class ComponentGroupDecoration extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title, style: Theme.of(context).textTheme.titleLarge),
             verticalPadding,

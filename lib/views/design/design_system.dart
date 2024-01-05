@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:goodpharm_mobile/views/design/components/actions.dart';
+
+import '../../utils/module/module.dart';
+
 import 'package:goodpharm_mobile/views/design/typography.dart';
 import 'package:goodpharm_mobile/views/design/ui.dart';
 
-import '../../data/constants.dart';
+import 'components/components.dart';
 
 /// Design System Home
 class DesignSystem extends StatefulWidget {
@@ -77,12 +80,12 @@ class _DesignSystem extends State<DesignSystem>
   Widget createScreenFor(ScreenSelected screenSelected) {
     switch (screenSelected) {
       case ScreenSelected.ui:
-        return Expanded(
-          child: DesignSystemUI(scaffoldKey: scaffoldKey),
-        );
+        return Components(scaffoldKey : scaffoldKey);
       case ScreenSelected.color: // TODO - color
         return DesignSystemUI(scaffoldKey: scaffoldKey);
       case ScreenSelected.typography:
+        return const DesignSystemTypography();
+      case ScreenSelected.etc:
         return const DesignSystemTypography();
     }
   }
@@ -230,8 +233,11 @@ const List<NavigationDestination> navigationItems = [
     selectedIcon: Icon(Icons.format_paint),
   ),
   NavigationDestination(
-    icon: Icon(Icons.text_snippet_outlined),
-    label: "Typography",
-    selectedIcon: Icon(Icons.text_snippet),
-  ),
+      icon: Icon(Icons.text_snippet_outlined),
+      label: "Typography",
+      selectedIcon: Icon(Icons.text_snippet)),
+  NavigationDestination(
+      icon: Icon(Icons.settings_outlined),
+      label: "Etc",
+      selectedIcon: Icon(Icons.settings)),
 ];

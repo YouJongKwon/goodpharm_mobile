@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../utils/module/module.dart';
 
 class DesignSystemTypography extends StatelessWidget {
   const DesignSystemTypography({super.key});
