@@ -1,5 +1,5 @@
 import 'package:goodpharm_mobile/views/design/typography.dart';
-import 'package:goodpharm_mobile/views/design/ui.dart';
+
 
 import '../../../utils/module/module.dart';
 import 'actions.dart';
@@ -67,7 +67,7 @@ class _ComponentsState extends State<Components>
   }
 }
 
-const List<Widget> pages = [
+List<Widget> pages = [
   ActionLayer(),
   DesignSystemTypography(),
   ActionLayer(),

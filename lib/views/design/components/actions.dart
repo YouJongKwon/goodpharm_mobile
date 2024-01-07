@@ -1,12 +1,10 @@
-import 'dart:ffi';
-
-import 'package:flutter/material.dart';
-
-import 'package:goodpharm_mobile/data/constants.dart';
 import 'package:goodpharm_mobile/utils/module/module.dart';
 
+/// Actions
 class ActionLayer extends StatefulWidget {
   const ActionLayer({super.key});
+
+  // const ActionLayer({super.key});
 
   @override
   State<StatefulWidget> createState() => _ActionsState();
@@ -19,11 +17,19 @@ class _ActionsState extends State<ActionLayer> {
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
-          CommonButtons(),
-          verticalPadding,
-          IconButtons(),
-          verticalPadding,
-          ChipButtons(),
+          // const CommonButtons(),
+          // verticalPadding,
+          // IconButtons(),
+          // verticalPadding,
+          // ChipButtons(),
+          // verticalPadding,
+          // const RadioButtons(),
+          // verticalPadding,
+          // const CheckBoxButtons(),
+          // verticalPadding,
+          // const Switches(),
+          // verticalPadding,
+          const SegmentedButtons(),
           verticalPadding,
         ],
       ),
@@ -31,6 +37,7 @@ class _ActionsState extends State<ActionLayer> {
   }
 }
 
+/// Common buttons
 class CommonButtons extends StatelessWidget {
   const CommonButtons({super.key});
 
@@ -192,6 +199,7 @@ class CommonDisableIconButtons extends StatelessWidget {
   }
 }
 
+/// Icon buttons
 class IconButtons extends StatefulWidget {
   IconButtons({super.key});
 
@@ -283,6 +291,7 @@ class _IconButtonsState extends State<IconButtons> {
   }
 }
 
+/// Chip buttons
 class ChipButtons extends StatefulWidget {
   ChipButtons({super.key});
 
@@ -290,6 +299,8 @@ class ChipButtons extends StatefulWidget {
   bool isValue02 = false;
   bool isValue03 = false;
   bool isValue04 = false;
+  bool isValue05 = false;
+  bool isValue06 = false;
 
   @override
   State<StatefulWidget> createState() => _ChipButtonsState();
@@ -342,17 +353,24 @@ class _ChipButtonsState extends State<ChipButtons> {
               label: const Text('Input'),
               selected: widget.isValue04,
               onSelected: (selected) {
-                widget.isValue04 = selected;
+                setState(() {
+                  widget.isValue04 = selected;
+                });
               }),
           InputChip(
             label: const Text('Input'),
-            selected: widget.isValue04,
+            selected: widget.isValue05,
+            selectedColor: Colors.greenAccent,
             deleteIconColor: Colors.deepOrange,
             onSelected: (selected) {
-              widget.isValue04 = !selected;
+              setState(() {
+                widget.isValue05 = selected;
+              });
             },
             onDeleted: () {
-              widget.isValue04 = false;
+              setState(() {
+                widget.isValue05 = false;
+              });
             },
           ),
         ],
@@ -361,28 +379,281 @@ class _ChipButtonsState extends State<ChipButtons> {
   }
 }
 
-class RadioButtons extends StatefulWidget {
-  RadioButtons({super.key});
+/// Radio buttons
+enum Options { option1, option2, option3 }
 
-  bool isValue01 = false;
-  bool isValue02 = false;
-  bool isValue03 = false;
+class RadioButtons extends StatefulWidget {
+  const RadioButtons({super.key});
 
   @override
   State<StatefulWidget> createState() => _RadioButtonsState();
 }
 
 class _RadioButtonsState extends State<RadioButtons> {
+  Options? _selected = Options.option1;
+
   @override
   Widget build(BuildContext context) {
     return CardDecoration(title: 'Radio buttons', widgets: [
-
+      RadioListTile(
+          value: Options.option1,
+          title: const Text('Option 1'),
+          groupValue: _selected,
+          onChanged: (selected) {
+            setState(() {
+              _selected = selected;
+            });
+          }),
+      RadioListTile(
+          value: Options.option2,
+          title: const Text('Option 2'),
+          groupValue: _selected,
+          onChanged: (selected) {
+            setState(() {
+              _selected = selected;
+            });
+          }),
+      RadioListTile(
+          value: Options.option3,
+          title: const Text('Option 3'),
+          groupValue: _selected,
+          onChanged: (selected) {
+            setState(() {
+              _selected = selected;
+            });
+          }),
     ]);
   }
-
 }
 
+/// Check Box Buttons
+class CheckBoxButtons extends StatefulWidget {
+  const CheckBoxButtons({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _CheckBoxButtons();
+}
+
+class _CheckBoxButtons extends State<CheckBoxButtons> {
+  bool? isChecked1 = true;
+  bool? isChecked2 = false;
+  bool? isChecked3 = false;
+  bool? isChecked4 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return CardDecoration(title: 'Checkbox Buttons', widgets: [
+      CheckboxListTile(
+          value: isChecked1,
+          title: const Text('Option 1'),
+          onChanged: (selected) {
+            setState(() {
+              isChecked1 = selected;
+            });
+          }),
+      CheckboxListTile(
+          value: isChecked2,
+          title: const Text('Option 2'),
+          onChanged: (selected) {
+            setState(() {
+              isChecked2 = selected;
+            });
+          }),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+              child: CheckboxListTile(
+                  value: isChecked3,
+                  title: const Text('Option 3'),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (selected) {
+                    setState(() {
+                      isChecked3 = selected;
+                    });
+                  })),
+          Expanded(
+              child: CheckboxListTile(
+                  value: isChecked4,
+                  title: const Text('Option 4'),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (selected) {
+                    setState(() {
+                      isChecked4 = selected;
+                    });
+                  })),
+        ],
+      )
+    ]);
+  }
+}
+
+/// Switches
+class Switches extends StatefulWidget {
+  const Switches({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _Switches();
+}
+
+class _Switches extends State<Switches> {
+  bool isValue1 = false;
+  bool isValue2 = false;
+  bool isValue3 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // icon
+    var thumbIcon1 = MaterialStateProperty.resolveWith((states) =>
+        states.contains(MaterialState.selected)
+            ? const Icon(Icons.check)
+            : const Icon(Icons.people));
+
+    var thumbIcon2 = MaterialStateProperty.resolveWith((states) =>
+        states.contains(MaterialState.selected)
+            ? const Icon(Icons.check)
+            : const Icon(Icons.close));
+
+    return CardDecoration(title: 'Switches', widgets: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Switch(
+              value: isValue1,
+              onChanged: (selected) {
+                setState(() {
+                  isValue1 = selected;
+                });
+              }),
+          Switch(
+              value: isValue2,
+              thumbIcon: thumbIcon1,
+              trackOutlineColor: MaterialStateProperty.resolveWith(
+                  (states) => Colors.blueGrey),
+              activeColor: Colors.green,
+              activeTrackColor: Colors.white,
+              onChanged: (selected) {
+                setState(() {
+                  isValue2 = selected;
+                });
+              }),
+          Switch(
+              value: isValue3,
+              thumbIcon: thumbIcon2,
+              activeColor: Colors.green,
+              onChanged: (selected) {
+                setState(() {
+                  isValue3 = selected;
+                });
+              }),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Switch(value: isValue1, onChanged: null),
+          Switch(
+              value: isValue2,
+              thumbIcon: thumbIcon1,
+              trackOutlineColor: MaterialStateProperty.resolveWith(
+                  (states) => Colors.blueGrey),
+              activeColor: Colors.green,
+              activeTrackColor: Colors.white,
+              onChanged: null),
+          Switch(
+              value: isValue3,
+              thumbIcon: thumbIcon2,
+              activeColor: Colors.green,
+              onChanged: null),
+        ],
+      ),
+    ]);
+  }
+}
+
+/// Segmented buttons
+enum SingleOption { Day, Week, Month, Year }
+
+enum MultiOption { One, Two, Three, Four, Five }
+
+class SegmentedButtons extends StatefulWidget {
+  const SegmentedButtons({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _SegmentedButtonsState();
+}
+
+class _SegmentedButtonsState extends State<SegmentedButtons> {
+  SingleOption value = SingleOption.Day;
+  Set<MultiOption> value2 = <MultiOption> { MultiOption.One };
+
+  @override
+  Widget build(BuildContext context) {
+    return CardDecoration(title: 'Segmented buttons', widgets: [
+      SegmentedButton(
+        selected: <SingleOption>{value},
+        segments: const [
+          ButtonSegment(
+              value: SingleOption.Day,
+              label: Text('Day'),
+              icon: Icon(Icons.calendar_view_day)),
+          ButtonSegment(
+              value: SingleOption.Week,
+              label: Text('Week'),
+              icon: Icon(Icons.calendar_view_week)),
+          ButtonSegment(
+              value: SingleOption.Month,
+              label: Text('Month'),
+              icon: Icon(Icons.calendar_month)),
+          ButtonSegment(
+              value: SingleOption.Year,
+              label: Text('Year'),
+              icon: Icon(Icons.calendar_today)),
+        ],
+        onSelectionChanged: (selected) {
+          setState(() {
+            value = selected.first;
+          });
+        },
+      ),
+      verticalPadding,
+      SegmentedButton (
+        segments: const [
+          ButtonSegment(
+              value: MultiOption.One,
+              label: Text('One')
+          ),
+          ButtonSegment(
+              value: MultiOption.Two,
+              label: Text('Two')
+          ),
+          ButtonSegment(
+              value: MultiOption.Three,
+              label: Text('Three')
+          ),
+          ButtonSegment(
+              value: MultiOption.Four,
+              label: Text('Four')
+          ),
+          ButtonSegment(
+              value: MultiOption.Five,
+              label: Text('Five')
+          ),
+        ],
+        selected: value2,
+        showSelectedIcon: false,
+        onSelectionChanged: (selected) {
+          setState(() {
+            value2 = selected;
+          });
+        },
+        multiSelectionEnabled: true,
+      ),
+    ]);
+  }
+}
+
+/// Common Card
 class CardDecoration extends StatefulWidget {
   const CardDecoration({super.key, required this.title, required this.widgets});
 
@@ -404,20 +675,23 @@ class _CardDecoration extends State<CardDecoration> {
             child: Focus(
               child: Card(
                 color: Theme.of(context).colorScheme.background,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    verticalPadding,
-                    Text(widget.title,
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 12)),
-                    verticalPadding,
-                    Column(
-                      children: widget.widgets,
-                    ),
-                    verticalPadding,
-                  ],
-                ),
+                child: Padding(
+                  padding: commonPadding,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      verticalPadding,
+                      Text(widget.title,
+                          style:
+                          TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 12)),
+                      verticalPadding,
+                      Column(
+                        children: widget.widgets,
+                      ),
+                      verticalPadding,
+                    ],
+                  ),
+                )
               ),
             ),
           )),

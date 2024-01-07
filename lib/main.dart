@@ -2,7 +2,6 @@ import '../../utils/module/module.dart';
 
 import 'package:goodpharm_mobile/utils/SizeUtils.dart';
 import 'package:goodpharm_mobile/views/design/design_system.dart';
-import 'package:goodpharm_mobile/views/login/login.dart';
 
 void main() {
   runApp(const App());
